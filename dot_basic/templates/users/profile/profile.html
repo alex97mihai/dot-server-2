@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+
+  <div class="jumbotron">
+
+    <h1><small>Profile</small></h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Location: {{ user.profile.location }}</p>
+    <p>Birthdate: {{ user.profile.birth_date }}</p>
+         <p>EUR: {{ user.profile.EUR }}</p>
+          <hr>
+          <p>USD: {{ user.profile.USD }}</p>
+          <hr>
+<p>RON: {{ user.profile.RON }}</p>
+
+  </div>
+
+  {% endif %}
+
+{% endblock %}

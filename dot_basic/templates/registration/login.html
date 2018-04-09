@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Dot.</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400, 500, 600, 700, 800, 900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/style.css" />
+    <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/login-style.css" />    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container-fluid h-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar-style">
+  <a class="navbar-brand" href="#">Dot.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dotnavbar" aria-controls="dotnavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="/signup">SIGN-UP</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">CORPORATE</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- ./NAVBAR -->
+
+<!-- PAGE CONTENT -->
+<div id="wrapper">  
+    <div class="row h-100" style="background-color: #1F1F1FFF">
+        
+
+      <div class="jumbotron">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="container-fluid" id="login-form">
+              <form class="form-horizontal" method="post">{% csrf_token %}
+                <fieldset>
+                  {% for field in form %}
+                  <div class="control-group">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }} {% if field.help_text %}
+                      <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </fieldset>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="login-btn">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-md-1 visible-lg hidden-md hidden-sm hidden">
+          <div id="vbar"></div>
+          </div>
+
+          <div class="col-md-4" id="message-box">
+            <div class="row" id="signup-link">
+              <a class="signup-message" href="/signup">Don't have an account? Sign-up here!</a>
+            </div>
+            <div class="row" id="signup-link">
+              <a class="company-signup-message" href="/corporate">Here for business? Go to company login!</a>
+            </div>
+          </div>
+        </div>
+
+</div>
+
+
+    </div>
+</div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+</body>
+</html>

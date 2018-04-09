@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/exchange.css" />
+
+  <div class="container-fluid exchange-container">
+    <div class="row">
+        <div class="text-center exchange-header">
+            <div class="exchange-text"> Exchange money with other Dot users!</div>
+        </div>
+    </div>
+    <div class="row"> 
+
+            <div class="col-lg-6 col-md-12">
+                <div class="jumbotron text-center">
+                    <div class="container-fluid" id="exchange-text"> Exchange </div>
+                    <div class="container-fluid" id="exchange-form">
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                          <fieldset>
+                            {% for field in form %}
+                            <div class="control-group">
+                              <label class="control-label">{{ field.label }}</label>
+                              <div class="controls">{{ field }} {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </fieldset>
+                          {% if error %}
+                                <div class="alert alert-danger alert-space">
+                                  You do not have enough money!
+                                </div>
+                          {% endif %}
+                          <div class="form-actions">
+                            <button name="exchange" type="submit" class="btn btn-primary btn-space custom-btn">Exchange</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+           
+                <div class="row"> 
+                        <div class="col-12">
+                          <div class="container-fluid" id="exchange-text"> Active Orders </div>
+                            <table class="table history">
+                              <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                              </tr>  
+                            {% for item in orders %}
+                              <tr>
+                                <td>{{ item.home_currency }}</td>
+                                <td>{{ item.target_currency }}</td>
+                                <td>{{ item.home_currency_amount }}</td>
+                                <td>{{ item.status }}
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.time }}</td>
+                              </tr>  
+                            {% endfor %}
+                            </table>
+                        </div>
+                </div>
+
+                <div class="row"> 
+                        <div class="col-12">
+                          <div class="container-fluid" id="exchange-text"> Completed Orders </div>
+                            <table class="table history">
+                              <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                              </tr>  
+                            {% for item in completed_orders %}
+                              <tr>
+                                <td>{{ item.home_currency }}</td>
+                                <td>{{ item.target_currency }}</td>
+                                <td>{{ item.home_currency_amount }}</td>
+                                <td>{{ item.status }}
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.time }}</td>
+                              </tr>  
+                            {% endfor %}
+                           </table>
+                        </div>
+
+                </div>
+            
+                
+            </div>
+
+    </div>  
+
+
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Dot.</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400, 500, 600, 700, 800, 900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container-fluid h-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar-style">
+  <a class="navbar-brand" href="#">Dot.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dotnavbar" aria-controls="dotnavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id='dotnavbar'>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">SETTINGS</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="about.html">MESSAGES</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">NOTIFICATIONS</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="/logout">LOGOUT</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" style="cursor: pointer;" onclick="display()">DASHBOARD</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- ./NAVBAR -->
+
+<!-- PAGE CONTENT -->
+<div id="wrapper">  
+    <div class="row h-100">
+        <!--SIDEBAR-->
+        <div class="col" id="sidebar">
+            <div class="welcome-items row"> 
+                <img class="avatar-style" src='{{ user.profile.avatar.url }}'> 
+            </div>
+            <div class="welcome-items row"> 
+                <div class="details">{{ user.username }} </div>
+            </div> 
+            <div class="sidebar-menu row">
+                <ul class="sidebar-list">
+                    <li class="sidebar-item sidebar-cat">
+                        <a class="sidebar-link" href="/">Wallet</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/money">Money</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/exchange">Exchange</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/">Transfer</a>
+                    </li>
+                    <li class="sidebar-item sidebar-cat">
+                        <a class="sidebar-link" href="/">Account</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/">History</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/">Friends</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/">Messages</a>
+                    </li>
+                    <li class="sidebar-item sidebar-sub">
+                        <a class="sidebar-link" href="/">Preferences</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-settings row mx-0">
+                <div class="sidebar-settings-text " data-toggle="tooltip" data-placement="right" title="Your default currency is used in all transactions!"><small> Currency</small></div>
+                <div class="btn-group btn-group-toggle sidebar-btn-grp" data-toggle="buttons">
+                  <label class="btn btn-secondary sidebar-btn active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> EUR
+                  </label>
+                  <label class="btn btn-secondary sidebar-btn">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> RON
+                  </label>
+                  <label class="btn btn-secondary sidebar-btn">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> USD
+                  </label>
+                </div>              
+            </div>
+
+            <div class="sidebar-money row">
+                <ul class="sidebar-money-list">
+                    <li class="sidebar-currency">EUR: {{ user.profile.EUR }} </li>
+                    <li class="sidebar-currency">USD: {{ user.profile.USD }} </li>
+                    <li class="sidebar-currency">RON: {{ user.profile.RON }} </li>        
+                </ul>         
+            </div>
+
+            <div class="footer row"> 
+                <div class="footer-text"><small>&copy; Dot. 2018 - T&amp;Cs</small></div>
+            </div>
+        </div>
+        <!--./SIDEBAR-->
+        <!--SCREEN-->
+        <div class="col" id="content">
+            <!-- MENU -->
+            <div class="row" id="menubar">
+                <ul class="menu-list">
+                    <li class="menu-item"><a class="active" href="/">Wallet</a></li>
+                    <li class="menu-item"><a href="/">Monitor</a></li>
+                    <li class="menu-item"><a href="/">Explore</a></li>
+                </ul>   
+            <!--./MENU-->
+            </div>
+            <!-- PAGE CONTENT -->
+            <div class="row mx-0 h-100">
+            {% block content %}
+            {% endblock %}
+            </div>
+            <!-- PAGE CONTENT -->
+        </div>
+        <!--./SCREEN-->
+            
+        <!--SIDEBAR2-->
+        <div class="col" id="sidebar2">
+            <div class="dashboard-header row">
+                <div class="dashboard-title"> Dashboard </div>
+            </div>
+            
+        </div>
+        <!--./SIDEBAR2-->
+
+
+    </div>
+</div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+<script type="text/javascript">
+ function display() {
+    var x = document.getElementById("sidebar2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+} 
+</script>
+
+</body>
+</html>

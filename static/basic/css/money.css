@@ -1,0 +1,59 @@
+.money-container {
+    padding-top: 58px;
+}
+
+.money-op{
+    margin: 100px auto 100px auto;
+}
+
+#id_currency, #id_amount {
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    width: 50%;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.custom-btn {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #2b1c2c;
+    border-color: #2b1c2c
+}
+
+.jumbotron {
+    background-color: #ededed;
+    padding: 3rem 2rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#money-text {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.money-text {
+    font-size: 1.8rem;
+}
+
+
+.money-header {
+    margin: 5px auto 25px;
+}
+
+.history {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.table th, .table td {
+    padding: .25rem;
+}

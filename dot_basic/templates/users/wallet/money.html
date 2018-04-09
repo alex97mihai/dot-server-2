@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/money.css" />
+
+  <div class="container-fluid money-container">
+    <div class="row">
+        <div class="text-center money-header">
+            <div class="money-text"> Add money to your Dot wallet or withdraw funds to your bank account.</div>
+        </div>
+    </div>
+    <div class="row"> 
+
+            <div class="col-lg-6 col-md-12">
+                <div class="jumbotron text-center">
+                    <div class="container-fluid" id="money-text"> Topup </div>
+                    <div class="container-fluid" id="topup-form">
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                          <fieldset>
+                            {% for field in topupform %}
+                            <div class="control-group">
+                              <label class="control-label">{{ field.label }}</label>
+                              <div class="controls">{{ field }} {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </fieldset>
+                          <div class="form-actions">
+                            <button name="topup" type="submit" class="btn btn-primary btn-space custom-btn">Topup</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="jumbotron text-center">
+                    <div class="container-fluid" id="money-text"> Withdraw </div>
+                    <div class="container-fluid" id="withdraw-form">
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                          <fieldset>
+                            {% for field in withdrawform %}
+                            <div class="control-group">
+                              <label class="control-label">{{ field.label }}</label>
+                              <div class="controls">{{ field }} {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </fieldset>
+                          <div class="form-actions">
+                            <button name="withdraw" type="submit" class="btn btn-primary btn-space custom-btn">Withdraw</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+
+
+
+    <div class="row"> 
+
+            <div class="col-12">
+
+                <table class="table history">
+                  <tr>
+                    <th>Transaction</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>  
+                {% for item in history %}
+                  <tr>
+                    <td>{{ item.optype }}</td>
+                    <td>{{ item.currency }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.time }}</td>
+                  </tr>  
+                {% endfor %}
+            </table>
+            </div>
+
+
+    </div>
+
+  </div>
+
+
+{% endblock %}

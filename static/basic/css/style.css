@@ -1,0 +1,209 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+html, body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    overflow: auto;
+    height: 100%;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    text-align: right;
+    font-weight: 400;
+    color: #fff;
+    font-size: 0.8em;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-brand {
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+#navbar-style {
+    padding-top:5px;
+    padding-bottom: 5px;
+    background-color: #181a1e;
+    box-shadow: 0px 0px 3px 0px black;
+}
+
+#wrapper {
+    padding-top:58px;
+    height: 100%
+}
+
+#sidebar {
+    background-color: #181a1e;
+    min-width: 225px;
+    max-width: 225px;
+    padding-top: 6vh;
+}
+
+#sidebar2 {
+    background-color: #181a1e;
+    min-width: 225px;
+    max-width: 225px;
+    padding-top: 25px;
+}
+
+.dashboard-title{
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0px auto;
+}
+
+#content {
+    background-color: #F3F3F3;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: auto;
+}
+
+#menubar {
+    position: absolute;
+    background-color: #2b1c2c;
+    color: #2b1c2c;
+    width: 100%;
+    margin: 0;
+}
+
+.menu-list {
+    margin: 0px auto 0px auto;
+}
+.menu-item {
+    margin: 0px 15px 0px 15px ;
+    float: left;
+    list-style: none;
+    color: #fff;
+}
+
+.menu-item a {
+    display: inline-block;
+    padding-top:5px;
+    padding-bottom: 2px;
+    border-bottom: 3px solid transparent;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu-item a:hover {
+    border-bottom: 3px #FFFFFF solid;
+}
+
+.menu-item .active {
+    border-bottom: 3px #BC6060 solid;
+
+}
+
+
+.welcome-items {
+}
+
+.avatar-style {
+    width: 60%;
+    height:auto;
+    border: 4px #fff solid;
+    margin: 0px auto;
+
+}
+
+.details {
+    padding-top: 10px;
+    color: #fff;
+    font-weight: 400;
+    margin: 0px auto 8px;
+
+}
+
+.sidebar-list {
+    margin: 30px 0 0 0 ;
+    padding:0;
+    width: 100%;
+}
+
+.sidebar-item {
+    list-style: none;   
+}
+
+
+.sidebar-item a {
+    font-size: 1em;
+    display: block; 
+    color: #fff;
+    padding: 5px 0 5px 25px;
+}
+
+.sidebar-item a:hover {
+    background-color: #89501D;
+    text-decoration: none;
+}
+
+.sidebar-sub a {
+    padding-left: 37px;
+}   
+
+.sidebar-cat a {
+    background-color: #2B2C2D;
+}
+
+
+.footer {
+    text-align: center;
+}
+
+.footer-text {
+    color: #303030;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform:translateX(-50%);
+    white-space: nowrap;
+    padding-bottom: 10px;
+}
+
+
+.sidebar-btn-grp {
+    margin: 0 auto 5px;
+    float: right;
+    display: inline;
+}
+
+.sidebar-btn {
+    font-size: 0.7rem;
+    padding: .200rem .50rem;
+    border: none;
+}
+
+/* disable default bootstrap focus shadow */
+.btn-secondary.focus, .btn-secondary:focus {
+    box-shadow: none;
+}
+
+.sidebar-settings-text {
+    margin: 0 auto;
+    color: #BEBEBE;
+}
+
+.sidebar-settings{
+    margin-top: 30px;
+}
+.sidebar-money-list {
+    list-style: none;
+    color: #9D9D9D;
+    padding-left: 0;
+    width: 90%;
+    margin: 20px auto 0px;
+}
+
+.sidebar-currency {
+    border-bottom: 1px #9D9D9D solid;
+    display: block;
+    color: #9D9D9D;
+    padding-left: 10px;
+}

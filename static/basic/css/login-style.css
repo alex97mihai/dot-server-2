@@ -1,0 +1,42 @@
+.jumbotron {
+    margin: auto;
+}
+
+#login-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.control-label{
+    margin-bottom: 0;
+}
+
+.control{
+    margin-bottom: 5rem;
+}
+#id_username, #id_password, #id_password1, #id_password2 {
+    width: 100%;
+}
+
+#vbar {
+    width:10px; 
+    height:100%; 
+    border-right: 1px solid #ccc;
+}
+
+#message-box{
+    margin: auto;
+}
+
+#signup-link {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.sign-up-header {
+    margin-bottom: 2rem;
+}
+
+.help-inline {
+    color: red;
+    }

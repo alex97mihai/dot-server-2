@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/transfer.css" />
+
+  <div class="container-fluid transfer-container">
+    <div class="row">
+        <div class="text-center transfer-header">
+            <div class="transfer-text"> Easily send money to your friends!</div>
+        </div>
+    </div>
+    <div class="row"> 
+
+            <div class="col-lg-6 col-md-12">
+                <div class="jumbotron text-center">
+                    <div class="container-fluid" id="transfer-text"> Transfer </div>
+                    <div class="container-fluid" id="transfer-form">
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                          <fieldset>
+                            {% for field in form %}
+                            <div class="control-group">
+                              <label class="control-label">{{ field.label }}</label>
+                              <div class="controls">{{ field }} {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </fieldset>
+                          <div class="form-actions">
+                            <button name="transfer" type="submit" class="btn btn-primary btn-space custom-btn">Send</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+           
+                <div class="row"> 
+                        <div class="col-12">
+                          <div class="container-fluid" id="transfer-text"> Transfers </div>
+                            <table class="table history">
+                              <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Currency</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                              </tr>  
+                            {% for item in transfer_history %}
+                              <tr>
+                                <td>{{ item.user }}</td>
+                                <td>{{ item.user2 }}</td>
+                                <td>{{ item.currency }}</td>
+                                <td>{{ item.amount }}
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.time }}</td>
+                              </tr>  
+                            {% endfor %}
+                            </table>
+                        </div>
+                </div>
+
+            
+                
+            </div>
+
+    </div>  
+
+
+    
+</div>
+
+{% endblock %}
