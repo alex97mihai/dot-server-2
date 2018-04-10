@@ -83,10 +83,10 @@ def moneyView(request):
                     user.profile.USD = balance['USD']
                     user.profile.EUR = balance['EUR']
                     user.profile.RON = balance['RON']
-                    user.save()                  
+                    user.save()
                 return redirect('/money/')
                 topupform = basic_forms.TopUpForm()
-            # user is topping up 
+            # user is topping up
             elif 'topup' in request.POST:
                 topupform = basic_forms.TopUpForm(request.POST)
                 if topupform.is_valid():
@@ -271,3 +271,31 @@ def transferView(request):
         return render(request, 'users/wallet/transfer.html', context_dict)
     else:
         return redirect('/')
+
+
+
+@login_required
+def settingsView(request):
+    user = request.user
+    if user.profile.corporate is False:
+        notifications=basic_models.Notification.objects.filter(user=user)
+        context_dict={'notifications':notifications}
+        return render(request, 'users/profile/settings.html', context_dict)
+    else:
+        return render(request, 'corporate/corporate-settings.html')
+
+@login_required
+def historyView(request):
+    user = request.user
+    if user.profile.corporate is False:
+        orders = basic_models.Order.objects.filter(user=user.username, status='pending')
+        completed_orders = basic_models.CompleteOrders.objects.filter(user=user.username)
+        notifications= basic_models.Notification.objects.filter(user=user)
+        operations_list = basic_models.OpHistory.objects.filter(user=user)
+        transfer_list = basic_models.TransferHistory.objects.filter(user=user) | basic_models.TransferHistory.objects.filter(user2=user)
+        transfer_list = transfer_list.order_by('-date', '-time')
+        payment_list = basic_models.PurchasedItem.objects.filter(user=user)
+        context_dict = {'payment_list':payment_list, 'orders':orders, 'completed_orders':completed_orders, 'notifications':notifications, 'operations_list': operations_list, 'transfer_list': transfer_list}
+        return render(request, 'users/wallet/history.html', context_dict)
+    else:
+        return redirect ('/')

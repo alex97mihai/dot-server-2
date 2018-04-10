@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/settings.css" />
+<div class="container-fluid settings-container">
+  <div class="settings-text">Settings</div>
+
+  <hr>
+  <div class="row settings-toggle">
+    <a data-toggle="collapse" href="#profilesettings" role="button" aria-expanded="false" aria-controls="profilesettings">General</a>
+  </div>
+  <div class="collapse" id="profilesettings">
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Profile Picture</a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Personal Details</a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Notifications</a>
+        </div>
+  </div>
+
+  <div class="row settings-toggle">
+    <a data-toggle="collapse" href="#accountsettings" role="button" aria-expanded="false" aria-controls="accountsettings">Account security</a>
+  </div>
+  <div class="collapse" id="accountsettings">
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Authentication </a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Devices </a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Third-party apps</a>
+        </div>
+  </div>
+
+  <div class="row settings-toggle">
+    <a data-toggle="collapse" href="#payments" role="button" aria-expanded="false" aria-controls="payments">Payments</a>
+  </div>
+  <div class="collapse" id="payments">
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Payment methods </a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Bank accounts </a>
+        </div>
+
+        <div class="link-box">
+          <a href="/uploadpic" class="settings-link"> Automatic payments </a>
+        </div>
+  </div>
+
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+.settings-container {
+    padding-top: 100px;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.settings-op{
+    margin: 100px auto 100px auto;
+}
+
+.custom-btn {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #2b1c2c;
+    border-color: #2b1c2c
+}
+
+.jumbotron {
+    background-color: #ededed;
+    padding: 3rem 2rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#settings-text {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: red !important;
+}
+
+.settings-text {
+    font-size: 1.8rem;
+}
+
+
+.settings-header {
+    margin: 5px auto 25px;
+}
+
+.history {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.settings-toggle {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.settings-toggle a {
+    text-decoration: none;
+    color: #000;
+}
+
+.link-box a {
+    text-decoration: none;
+    color: #222;
+    margin: 0;
+}
+
+.link-box {
+    padding: 5px 0px 5px 5px;
+    border-bottom: 1px rgba(0,0,0,.1) solid;
+}

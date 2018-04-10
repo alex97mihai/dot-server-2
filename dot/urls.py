@@ -40,5 +40,7 @@ urlpatterns = [
     path('money/', moneyView, name='operations'),
     path('exchange/', exchangeView, name='exchange'),
     path('transfer/', transferView, name='transfer'),
+    path('settings/', settingsView, name='settings'),
+    path('history/', historyView, name='history'),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

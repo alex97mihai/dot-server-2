@@ -24,36 +24,33 @@
   <div class="collapse navbar-collapse" id='dotnavbar'>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item mx-1">
-        <a class="nav-link" href="#">SETTINGS</a>
+        <a class="nav-link" href="/settings">SETTINGS</a>
       </li>
       <li class="nav-item mx-1">
-        <a class="nav-link" href="about.html">MESSAGES</a>
-      </li>
-      <li class="nav-item mx-1">
-        <a class="nav-link" href="#">NOTIFICATIONS</a>
-      </li>
-      <li class="nav-item mx-1">
-        <a class="nav-link" href="/logout">LOGOUT</a>
+        <a class="nav-link" href="/messages">MESSAGES</a>
       </li>
       <li class="nav-item mx-1">
         <a class="nav-link" style="cursor: pointer;" onclick="display()">DASHBOARD</a>
       </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="/logout">LOGOUT</a>
+      </li>    
     </ul>
   </div>
 </nav>
 <!-- ./NAVBAR -->
 
 <!-- PAGE CONTENT -->
-<div id="wrapper">  
+<div id="wrapper">
     <div class="row h-100">
         <!--SIDEBAR-->
         <div class="col" id="sidebar">
-            <div class="welcome-items row"> 
-                <img class="avatar-style" src='{{ user.profile.avatar.url }}'> 
+            <div class="welcome-items row">
+                <img class="avatar-style" src='{{ user.profile.avatar.url }}'>
             </div>
-            <div class="welcome-items row"> 
+            <div class="welcome-items row">
                 <div class="details">{{ user.username }} </div>
-            </div> 
+            </div>
             <div class="sidebar-menu row">
                 <ul class="sidebar-list">
                     <li class="sidebar-item sidebar-cat">
@@ -66,22 +63,22 @@
                         <a class="sidebar-link" href="/exchange">Exchange</a>
                     </li>
                     <li class="sidebar-item sidebar-sub">
-                        <a class="sidebar-link" href="/">Transfer</a>
+                        <a class="sidebar-link" href="/transfer">Transfer</a>
                     </li>
                     <li class="sidebar-item sidebar-cat">
-                        <a class="sidebar-link" href="/">Account</a>
+                        <a class="sidebar-link" href="">Account</a>
                     </li>
                     <li class="sidebar-item sidebar-sub">
-                        <a class="sidebar-link" href="/">History</a>
+                        <a class="sidebar-link" href="/history">History</a>
                     </li>
                     <li class="sidebar-item sidebar-sub">
-                        <a class="sidebar-link" href="/">Friends</a>
+                        <a class="sidebar-link" href="/friends">Friends</a>
                     </li>
                     <li class="sidebar-item sidebar-sub">
-                        <a class="sidebar-link" href="/">Messages</a>
+                        <a class="sidebar-link" href="/messages">Messages</a>
                     </li>
                     <li class="sidebar-item sidebar-sub">
-                        <a class="sidebar-link" href="/">Preferences</a>
+                        <a class="sidebar-link" href="/settings">Preferences</a>
                     </li>
                 </ul>
             </div>
@@ -97,18 +94,18 @@
                   <label class="btn btn-secondary sidebar-btn">
                     <input type="radio" name="options" id="option3" autocomplete="off"> USD
                   </label>
-                </div>              
+                </div>
             </div>
 
             <div class="sidebar-money row">
                 <ul class="sidebar-money-list">
                     <li class="sidebar-currency">EUR: {{ user.profile.EUR }} </li>
                     <li class="sidebar-currency">USD: {{ user.profile.USD }} </li>
-                    <li class="sidebar-currency">RON: {{ user.profile.RON }} </li>        
-                </ul>         
+                    <li class="sidebar-currency">RON: {{ user.profile.RON }} </li>
+                </ul>
             </div>
 
-            <div class="footer row"> 
+            <div class="footer row">
                 <div class="footer-text"><small>&copy; Dot. 2018 - T&amp;Cs</small></div>
             </div>
         </div>
@@ -121,7 +118,7 @@
                     <li class="menu-item"><a class="active" href="/">Wallet</a></li>
                     <li class="menu-item"><a href="/">Monitor</a></li>
                     <li class="menu-item"><a href="/">Explore</a></li>
-                </ul>   
+                </ul>
             <!--./MENU-->
             </div>
             <!-- PAGE CONTENT -->
@@ -132,13 +129,13 @@
             <!-- PAGE CONTENT -->
         </div>
         <!--./SCREEN-->
-            
+
         <!--SIDEBAR2-->
         <div class="col" id="sidebar2">
             <div class="dashboard-header row">
                 <div class="dashboard-title"> Dashboard </div>
             </div>
-            
+
         </div>
         <!--./SIDEBAR2-->
 
@@ -150,7 +147,7 @@
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 
@@ -162,7 +159,7 @@ $(document).ready(function(){
     } else {
         x.style.display = "none";
     }
-} 
+}
 </script>
 
 </body>

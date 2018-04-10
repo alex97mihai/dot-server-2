@@ -26,7 +26,7 @@ SECRET_KEY = '$xb$nl74v0yk)n4reetugzbty*)+l#rsnjs=2ego0-jqb60erh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.245.213.148']
+ALLOWED_HOSTS = ['34.240.191.2']
 
 
 # Application definition

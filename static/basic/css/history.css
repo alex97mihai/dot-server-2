@@ -1,0 +1,80 @@
+.history-container {
+    padding-top: 100px;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-bottom: 50px;
+}
+
+.history-op{
+    margin: 100px auto 100px auto;
+}
+
+.custom-btn {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #2b1c2c;
+    border-color: #2b1c2c
+}
+
+.jumbotron {
+    background-color: #ededed;
+    padding: 3rem 2rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.history-list-container{
+    margin-top: 30px;
+}
+
+#history-text {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: red !important;
+}
+
+.history-text {
+    font-size: 1.8rem;
+}
+
+.history-intro {
+    font-size: 1rem;
+}
+
+.history-header {
+    margin: 5px auto 25px;
+}
+
+.history {
+    width: 100%;
+}
+
+.table th, .table td {
+    padding: .25rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top: none;
+}
+
+.history-toggle {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.history-link, .history-link:hover {
+  color: #000;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+
+.history-header {
+  font-size: 30px;
+  margin: 10px 0 0 0;
+}
+
+.link-box{
+    margin-top: 10px;
+    border-bottom: 1px rgba(0,0,0,.1) solid;
+}
+
