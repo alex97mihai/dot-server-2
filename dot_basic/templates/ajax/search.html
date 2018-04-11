@@ -1,9 +1,11 @@
 
 <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/search.css" />
 <div class="container-fluid friend-container">
+{% if userlist %}
 <div class="row">
     <div class="search-header">Users</div>
 </div>
+{% endif %}
 {% for item in userlist %}
 <div class="row">
 <div class="col-2">

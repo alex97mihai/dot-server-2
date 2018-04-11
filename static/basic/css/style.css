@@ -228,5 +228,8 @@ html, body {
     font-size: 1em;
     color: #fff;
     margin: 0px auto;
+}
 
+#notif-container {
+    width: 100%;
 }

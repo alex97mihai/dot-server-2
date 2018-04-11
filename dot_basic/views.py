@@ -287,7 +287,7 @@ def transferView(request):
                 user.save()
                 uid.save()
                 # pop notification for user 2
-                notification = basic_models.Notification(user = uid, user2 = user, notification_type = 'transfer-complete', date = datetime.date.today(), time = datetime.datetime.now().strftime('%H:%M:%S'), notification = "You have received %s%s from %s" % (currency, str(amount), user.username))
+                notification = basic_models.Notification(user = uid, user2 = user, notification_type = 'Transfer', date = datetime.date.today(), time = datetime.datetime.now().strftime('%H:%M:%S'), notification = "You have received %s %s from %s" % (str(amount), currency, user.username))
                 notification.save()
 
             return redirect('/transfer/')
@@ -307,7 +307,7 @@ def settingsView(request):
     user = request.user
     if user.profile.corporate is False:
         notifications=basic_models.Notification.objects.filter(user=user)
-        context_dict={'notifications':notifications}
+        context_dict={}
         return render(request, 'users/profile/settings.html', context_dict)
     else:
         return render(request, 'corporate/corporate-settings.html')
@@ -318,15 +318,19 @@ def historyView(request):
     if user.profile.corporate is False:
         orders = basic_models.Order.objects.filter(user=user.username, status='pending')
         completed_orders = basic_models.CompleteOrders.objects.filter(user=user.username)
-        notifications= basic_models.Notification.objects.filter(user=user)
         operations_list = basic_models.OpHistory.objects.filter(user=user)
         transfer_list = basic_models.TransferHistory.objects.filter(user=user) | basic_models.TransferHistory.objects.filter(user2=user)
         transfer_list = transfer_list.order_by('-date', '-time')
         payment_list = basic_models.PurchasedItem.objects.filter(user=user)
-        context_dict = {'payment_list':payment_list, 'orders':orders, 'completed_orders':completed_orders, 'notifications':notifications, 'operations_list': operations_list, 'transfer_list': transfer_list}
+        context_dict = {'payment_list':payment_list, 'orders':orders, 'completed_orders':completed_orders, 'operations_list': operations_list, 'transfer_list': transfer_list}
         return render(request, 'users/wallet/history.html', context_dict)
     else:
         return redirect ('/')
+
+
+
+
+# -------- AJAX VIEWS --------#
 
 @login_required
 def searchView(request):
@@ -335,3 +339,18 @@ def searchView(request):
     userlist = User.objects.filter(username__icontains=query)[:5]
     context_dict = {'userlist': userlist}
     return render(request, 'ajax/search.html', context_dict)
+
+@login_required
+def getNotificationsView(request):
+    user = request.user
+    notifications = basic_models.Notification.objects.filter(user=user, status='unseen').order_by('-id')[:5]
+    context_dict = {'notifications': notifications}
+    return render(request, 'ajax/notifications.html', context_dict)
+
+@login_required
+def markAsSeenView(request):
+    n_id = request.GET.get('id', '')
+    notification = basic_models.Notification.objects.get(id=n_id)
+    notification.status='seen'
+    notification.save()
+    return HttpResponse('')

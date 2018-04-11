@@ -1,0 +1,29 @@
+.friend-container {
+    color: #fff;
+}
+
+.notification-header {
+    margin-left: 5px;
+    color: #9D9D9D;
+}
+
+.notification-box {
+    background-color: #585858; 
+    padding: 5px;
+    margin: 5px 10px 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.notif-cont-style {
+    width: 100%;
+}
+
+.notification-name {
+    color: #DDD;
+}
+
+.notification-text { 
+    font-size: 0.8rem;
+    color: #fff;
+ }

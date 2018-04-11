@@ -45,5 +45,7 @@ urlpatterns = [
     path('settings/', settingsView, name='settings'),
     path('history/', historyView, name='history'),
     path('search/', searchView, name='search'),
+    path('get-notifications/', getNotificationsView, name='get notifications'),
+    path('mark-as-seen/', markAsSeenView, name='mark as seen'),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
