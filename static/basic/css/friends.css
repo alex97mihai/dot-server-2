@@ -1,0 +1,72 @@
+.friends-container {
+    padding-top: 58px;
+}
+
+.friends-op{
+    margin: 100px auto 100px auto;
+}
+
+#id_currency, #id_amount {
+    width: 50%;
+}
+
+.custom-btn {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #2b1c2c;
+    border-color: #2b1c2c
+}
+
+.jumbotron {
+    background-color: #ededed;
+    padding: 3rem 2rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#friends-text {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.friends-text {
+    font-size: 1.8rem;
+}
+
+
+.friends-header {
+    margin: 5px auto 25px;
+}
+
+.history {
+    margin: 20px auto;
+}
+
+.table th, .table td {
+    font-size: .8rem;
+    padding: .25rem;
+}
+
+#id_home_currency, #id_target_currency {
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    width: 50%;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+#id_home_currency_amount {
+    width: 50%;
+}
+
+.alert-space {
+    width: 50%;
+    margin: 10px auto;
+}

@@ -1,0 +1,17 @@
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/search.css" />
+<div class="container-fluid friend-container">
+<div class="row">
+    <div class="search-header">Users</div>
+</div>
+{% for item in userlist %}
+<div class="row">
+<div class="col-2">
+    <img src="{{ user.profile.avatar.url }}" width="15" height="15">
+</div>
+<div class="col-10">
+{{ item.username }}
+</div>
+</div>
+{% endfor %}
+</div>

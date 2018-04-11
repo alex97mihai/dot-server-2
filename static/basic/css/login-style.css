@@ -1,3 +1,4 @@
+
 .jumbotron {
     margin: auto;
 }
@@ -39,4 +40,17 @@
 
 .help-inline {
     color: red;
-    }
+}
+
+.signup-jumbo {
+    width: 30%;
+}
+
+#id_email {
+    width: 100%;
+}
+
+#signup-btn {
+    margin-top: 20px;
+    width: 100%;
+}

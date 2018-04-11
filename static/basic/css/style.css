@@ -1,3 +1,4 @@
+
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 
@@ -155,6 +156,7 @@ html, body {
 
 .footer {
     text-align: center;
+    padding-top: 50px;
 }
 
 .footer-text {
@@ -206,4 +208,25 @@ html, body {
     display: block;
     color: #9D9D9D;
     padding-left: 10px;
+}
+
+.search-inner {
+    margin:0px 5px 20px 5px;
+    font-size: 0.8rem;
+    background-color: #47484A; 
+    color: #9D9D9D;
+    height: 80%;
+    border: 1px solid #47484A;
+}
+
+.search-row {
+    margin-top: -20px;
+}
+
+#dbcontent {
+    width: 100%;
+    font-size: 1em;
+    color: #fff;
+    margin: 0px auto;
+
 }

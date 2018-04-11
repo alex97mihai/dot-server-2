@@ -1,3 +1,4 @@
+
 """dot URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
 from django.conf.urls import url
 from django.contrib import admin
@@ -34,6 +35,7 @@ urlpatterns = [
     #
     # REGISTRATION
     path('signup/', signupView, name='signup'),
+    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate_view'),
     # PROFILE
     path('', homeView, name='home'),
     # WALLET
@@ -42,5 +44,6 @@ urlpatterns = [
     path('transfer/', transferView, name='transfer'),
     path('settings/', settingsView, name='settings'),
     path('history/', historyView, name='history'),
+    path('search/', searchView, name='search'),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,6 +9,8 @@ import datetime
 currencies = [('EUR','EUR'),('USD','USD'),('RON','RON'),]
 
 class SignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+    
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].help_text = ''
@@ -16,7 +18,7 @@ class SignUpForm(UserCreationForm):
         self.fields['password1'].help_text = 'At least 8 characters'
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = ('email', 'username', 'password1', 'password2')
 
 
 class TopUpForm(forms.Form):
