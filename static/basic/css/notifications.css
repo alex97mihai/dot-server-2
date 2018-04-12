@@ -27,3 +27,7 @@
     font-size: 0.8rem;
     color: #fff;
  }
+
+.notification-new {
+    background-color: #5E4B30 !important;
+}

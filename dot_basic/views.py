@@ -327,6 +327,78 @@ def historyView(request):
     else:
         return redirect ('/')
 
+@login_required
+def markAsSeenView(request):
+    n_id = request.GET.get('id', '')
+    notification = basic_models.Notification.objects.get(id=n_id)
+    notification.status='seen'
+    notification.save()
+    return HttpResponse('')
+
+@login_required
+def profileView(request):
+    user = request.user
+    your_page = True
+    if request.GET.get('user', ''):
+        your_page = False
+        target = User.objects.get(username=request.GET.get('user', ''))
+        is_friend = False
+        sent = False
+        if basic_models.Friendship.objects.filter(creator=user, friend=target, status='sent').exists():
+            sent = True
+        if basic_models.Friendship.objects.filter(creator=user, friend=target, status='accepted').exists():
+            is_friend = True
+        context_dict={'sent': sent, 'is_friend': is_friend, 'target': target, 'your_page': your_page}
+        return render(request, 'users/profile/profile.html', context_dict)
+    context_dict={'your_page': your_page}
+    return render(request, 'users/profile/profile.html', context_dict)
+
+@login_required
+def friendsView(request):
+    user = request.user
+    if request.GET.get('add', ''):
+        target = User.objects.get(username=request.GET.get('add', ''))
+        if not basic_models.Friendship.objects.filter(creator=user, friend=target).exists():
+            if basic_models.Friendship.objects.filter(creator=target, friend=user).exists():
+                friendship1 = basic_models.Friendship.objects.get(creator=target, friend=user)
+                friendship1.status = 'accepted'
+                friendship2 = basic_models.Friendship(creator=user, friend=target, status='accepted')
+                friendship1.save()
+                notification1 = basic_models.Notification(user = target,
+                                                          user2 = user,
+                                                          notification_type = "friend-accept",
+                                                          date = datetime.date.today(),
+                                                          time = datetime.datetime.now().strftime('%H:%M:%S'),
+                                                          notification = "You are now friends with %s" % user.username)
+                notification2 = basic_models.Notification(user = user,
+                                                          user2 = target,
+                                                          notification_type = "friend-accept",
+                                                          date = datetime.date.today(),
+                                                          time = datetime.datetime.now().strftime('%H:%M:%S'),
+                                                          notification = "You are now friends with %s" % target.username)
+                notification1.save()
+                notification2.save()
+            else:
+                friendship2 = basic_models.Friendship(creator=user, friend=target)
+                notification = basic_models.Notification(user = target,
+                                                         user2 = user,
+                                                         notification_type = "friend-request",
+                                                         date = datetime.date.today(),
+                                                         time = datetime.datetime.now().strftime('%H:%M:%S'),
+                                                         notification="You have a friend request from %s" % user.username)
+                notification.save()
+            friendship2.save()
+        sent = True
+        context_dict = {'sent':sent}
+        url = '/profile/?user=' + str(target.username)
+        return redirect(url)
+
+    if request.GET.get('rm', ''):
+        target = User.objects.get(username=request.GET.get('rm', ''))
+        basic_models.Friendship.objects.filter(creator=target, friend=user).delete()
+        basic_models.Friendship.objects.filter(creator=user, friend=target).delete()
+        url = '/profile/?user=' + str(target.username)
+        return redirect(url)
 
 
 
@@ -343,14 +415,13 @@ def searchView(request):
 @login_required
 def getNotificationsView(request):
     user = request.user
-    notifications = basic_models.Notification.objects.filter(user=user, status='unseen').order_by('-id')[:5]
-    context_dict = {'notifications': notifications}
+    context_dict = {}
+    notifications = basic_models.Notification.objects.filter(user=user, status='unseen').order_by('-id')
+    if len(notifications) < 5:
+        n = 5-len(notifications)
+        notifications_seen = basic_models.Notification.objects.filter(user=user, status='seen').order_by('-id')[:n]
+        context_dict['notifications_seen'] = notifications_seen
+    else:
+        notifications = notifications[:5]
+    context_dict['notifications'] = notifications
     return render(request, 'ajax/notifications.html', context_dict)
-
-@login_required
-def markAsSeenView(request):
-    n_id = request.GET.get('id', '')
-    notification = basic_models.Notification.objects.get(id=n_id)
-    notification.status='seen'
-    notification.save()
-    return HttpResponse('')

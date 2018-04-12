@@ -1,4 +1,3 @@
-
 """dot URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -38,6 +37,8 @@ urlpatterns = [
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate_view'),
     # PROFILE
     path('', homeView, name='home'),
+    path('profile/', profileView, name='profile'),
+    path('friends/', friendsView, name='friends'),
     # WALLET
     path('money/', moneyView, name='operations'),
     path('exchange/', exchangeView, name='exchange'),
@@ -47,5 +48,4 @@ urlpatterns = [
     path('search/', searchView, name='search'),
     path('get-notifications/', getNotificationsView, name='get notifications'),
     path('mark-as-seen/', markAsSeenView, name='mark as seen'),
-
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

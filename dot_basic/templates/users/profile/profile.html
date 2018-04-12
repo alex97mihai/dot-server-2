@@ -1,23 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/profile.css" />
 
-  {% if user.is_authenticated %}
+  <div class="container-fluid profile-container">
+    <!-- YOUR PROFILE CONTENT -->
+    {% if your_page %}
 
-  <div class="jumbotron">
+    <div class="welcome-header">Hello, {{ user.username }}. </div>
 
-    <h1><small>Profile</small></h1>
-    <p>Username: {{ user.username }}</p>
-    <p>Location: {{ user.profile.location }}</p>
-    <p>Birthdate: {{ user.profile.birth_date }}</p>
-         <p>EUR: {{ user.profile.EUR }}</p>
-          <hr>
-          <p>USD: {{ user.profile.USD }}</p>
-          <hr>
-<p>RON: {{ user.profile.RON }}</p>
+    <div class="welcome-text">This is your Dot wallet. Use the left sidebar to topup, withdraw, transfer or even exchange money with other users. </div>
 
-  </div>
 
-  {% endif %}
+    <!-- VIEWING OTHER USERS -->
+    {% else %}
+      <!-- WHEN FRIEND -->
+      {% if is_friend %}
+        You are friends with {{ target.username}}
+
+      <!-- WHEN NOT FRIEND -->
+      {% elif not is_friend and not sent %}
+      <div class="welcome-header">{{ target.username }}'s profile</div>
+      <div class="welcome-text"> You are not friends with {{ target.username }} and cannot see his profile. Would you like to add {{ target.username }} to your friend list?
+        <a href="/friends/?add={{ target.username }}"><i style="color: #000" class="fas fa-plus"></i></a> </div>
+      {% elif not is_friend and sent %}
+      <div class="welcome-header">{{ target.username }}'s profile</div>
+      <div class="welcome-text"> Friend request sent! </div>
+
+
+
+      {% endif %}
+
+
+    {% endif %}
+
+</div>
 
 {% endblock %}

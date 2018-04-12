@@ -2,12 +2,22 @@
 
 <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/notifications.css" />
 <div class="container-fluid notif-cont-style">
-{% if notifications %}
+{% if notifications or notifications_seen %}
 <div class="row">
     <div class="notification-header">Notifications</div>
 </div>
 {% endif %}
+
 {% for item in notifications %}
+<div class="row">
+    <div class="notification-box notification-new">
+        <div class="notification-name" style="cursor: pointer;" onclick="seen({{ item.id }})"> {{ item.notification_type }} from {{ item.user2 }} </div>
+
+        <div class="notification-text"> {{ item.notification }} </div>
+    </div>
+</div>
+{% endfor %}
+{% for item in notifications_seen %}
 <div class="row">
     <div class="notification-box">
         <div class="notification-name" style="cursor: pointer;" onclick="seen({{ item.id }})"> {{ item.notification_type }} from {{ item.user2 }} </div>
@@ -17,6 +27,7 @@
 </div>
 {% endfor %}
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
