@@ -53,7 +53,7 @@ html, body {
     padding-top: 25px;
 }
 
-.dashboard-title{
+.dashboard-title {
     font-size: 1.5em;
     color: #fff;
     margin: 0px auto;
@@ -68,8 +68,8 @@ html, body {
 
 #menubar {
     position: absolute;
-    background-color: #2b1c2c;
-    color: #2b1c2c;
+    background-color: #2f2f2f;
+    color: #2f2f2f;
     width: 100%;
     margin: 0;
 }
@@ -142,7 +142,7 @@ html, body {
 }
 
 .sidebar-item a:hover {
-    background-color: #89501D;
+    background-color: #77393c;
     text-decoration: none;
 }
 
@@ -193,7 +193,7 @@ html, body {
     color: #BEBEBE;
 }
 
-.sidebar-settings{
+.sidebar-settings {
     margin-top: 30px;
 }
 .sidebar-money-list {
@@ -237,4 +237,19 @@ html, body {
 
 #notif-container {
     width: 100%;
+}
+
+.wordwrap {
+white-space: -moz-pre-wrap; /* Mozilla */
+white-space: -hp-pre-wrap; /* HP printers */
+white-space: -o-pre-wrap; /* Opera 7 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: pre-wrap; /* CSS 2.1 */
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+word-wrap: break-word; /* IE */
+word-break: break-all;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show > .btn-secondary.dropdown-toggle {
+  background-color: #962228;
 }

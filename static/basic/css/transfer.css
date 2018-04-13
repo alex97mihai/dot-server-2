@@ -2,11 +2,11 @@
     padding-top: 58px;
 }
 
-.transfer-op{
+.transfer-op {
     margin: 100px auto 100px auto;
 }
 
-#id_amount, #id_username{
+#id_amount, #id_username {
     width: 50%;
 }
 

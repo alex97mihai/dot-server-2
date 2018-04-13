@@ -37,15 +37,27 @@ urlpatterns = [
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate_view'),
     # PROFILE
     path('', homeView, name='home'),
+    #
     path('profile/', profileView, name='profile'),
+    path('profile/<slug:profile>', profileView, name='profile'),
+    #
     path('friends/', friendsView, name='friends'),
+    path('get_user_info/', get_user_info_AJAX, name='spy'),
+    path('messages/', conversationsView, name='conversations'),
+    path('messages/<slug:name>', chatView, name='chat'),
+    path('send_message/', send_message_AJAX, name='send message'),
+    path('get_messages/', get_messages_AJAX, name='get_messages'),
     # WALLET
     path('money/', moneyView, name='operations'),
     path('exchange/', exchangeView, name='exchange'),
     path('transfer/', transferView, name='transfer'),
-    path('settings/', settingsView, name='settings'),
     path('history/', historyView, name='history'),
     path('search/', searchView, name='search'),
     path('get-notifications/', getNotificationsView, name='get notifications'),
     path('mark-as-seen/', markAsSeenView, name='mark as seen'),
+    path('change-default/', changeDefaultView, name='change default currency'),
+    # SETTINGS
+    path('settings/', settingsView, name='settings'),
+    path('settings/profile-picture/', profilePictureView, name='profile pic'),
+
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

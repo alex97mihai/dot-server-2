@@ -10,7 +10,7 @@ currencies = [('EUR','EUR'),('USD','USD'),('RON','RON'),]
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
-    
+
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].help_text = ''
@@ -46,3 +46,5 @@ class TransferForm(forms.Form):
 class ImageUploadForm(forms.Form):
     image = forms.ImageField()
 
+class SendMessageForm(forms.Form):
+    message = forms.CharField(label='Message:', widget=forms.TextInput(attrs={'id': 'post-message'}))

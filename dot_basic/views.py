@@ -21,6 +21,7 @@ from .tokens import account_activation_token
 import json, os, datetime, decimal, time, csv, codecs
 import _strptime
 from forex_python.converter import CurrencyRates
+import sys
 # Create your views here.
 
 
@@ -82,8 +83,9 @@ def activate(request, uidb64, token):
 @login_required
 def homeView(request):
     user=request.user
+    your_page = True
     if user.profile.corporate is False:
-        return render(request, 'users/profile/profile.html')
+        return render(request, 'users/profile/profile.html', {'your_page': your_page})
     else:
         return render(request, 'corporate/corporate-profile.html')
 
@@ -313,6 +315,20 @@ def settingsView(request):
         return render(request, 'corporate/corporate-settings.html')
 
 @login_required
+def profilePictureView(request):
+    user = request.user
+    if request.method == 'POST':
+        form = basic_forms.ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            user.profile.avatar=form.cleaned_data['image']
+            user.save()
+            return redirect('/settings/profile-picture/')
+    else:
+        form = basic_forms.ImageUploadForm()
+        context_dict = {'form': form}
+        return render(request, 'users/profile/avatar.html', context_dict)
+
+@login_required
 def historyView(request):
     user = request.user
     if user.profile.corporate is False:
@@ -336,12 +352,12 @@ def markAsSeenView(request):
     return HttpResponse('')
 
 @login_required
-def profileView(request):
+def profileView(request, profile=0):
     user = request.user
     your_page = True
-    if request.GET.get('user', ''):
+    if profile!=0 and profile!=user.username:
         your_page = False
-        target = User.objects.get(username=request.GET.get('user', ''))
+        target = User.objects.get(username=profile)
         is_friend = False
         sent = False
         if basic_models.Friendship.objects.filter(creator=user, friend=target, status='sent').exists():
@@ -393,16 +409,103 @@ def friendsView(request):
         url = '/profile/?user=' + str(target.username)
         return redirect(url)
 
-    if request.GET.get('rm', ''):
+    elif request.GET.get('rm', ''):
         target = User.objects.get(username=request.GET.get('rm', ''))
         basic_models.Friendship.objects.filter(creator=target, friend=user).delete()
         basic_models.Friendship.objects.filter(creator=user, friend=target).delete()
         url = '/profile/?user=' + str(target.username)
         return redirect(url)
 
+    else:
+        accepted_friends = basic_models.Friendship.objects.filter(creator=user, status='accepted')
+        pending_friends = basic_models.Friendship.objects.filter(creator=user, status ='sent')
+        requests = basic_models.Friendship.objects.filter(friend=user, status='sent')
+        context_dict={'accepted_friends': accepted_friends, 'pending_friends': pending_friends, 'requests': requests}
+        return render(request, 'users/profile/friends.html', context_dict)
+
+
+
+def chatView(request, name=0):
+    user = request.user
+    if User.objects.filter(username=name).exists():
+        chat_buddy = User.objects.get(username=name)
+        form = basic_forms.SendMessageForm()
+        messages = basic_models.Message.objects.filter(user_from=user, user_to=chat_buddy) | basic_models.Message.objects.filter(user_from=chat_buddy, user_to=user)
+        messages = messages.order_by('id')
+        context_dict = {'form': form, 'chat_buddy': chat_buddy, 'messages': messages}
+        return render(request, 'users/messages/chat.html', context_dict)
+
+def conversationsView(request):
+    user = request.user
+    return render(request, 'users/messages/chat.html')
+
+
 
 
 # -------- AJAX VIEWS --------#
+
+def get_user_info_AJAX(request):
+    if request.is_ajax():
+        user = request.user
+        target = request.GET.get('friend', '')
+        friend = User.objects.get(username=target)
+        is_friend = False
+        if basic_models.Friendship.objects.filter(creator=user, friend=friend, status='accepted').exists():
+            is_friend = True
+        context_dict={'friend': friend, 'is_friend': is_friend}
+        return render(request, 'ajax/get_user_info.html', context_dict)
+    else:
+        return redirect('/')
+
+def send_message_AJAX(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+            message_text = request.POST.get('the_message')
+            chat_buddy=request.POST.get('chat_buddy')
+            response_data = {}
+            message = basic_models.Message(message=message_text,
+                                           user_from=request.user,
+                                           user_to=User.objects.get(username=chat_buddy))
+            message.date = datetime.date.today()
+            message.time = datetime.datetime.now().strftime('%H:%M:%S')
+
+            message.save()
+
+            response_data['result'] = 'Create post successful!'
+            response_data['postpk'] = message.pk
+            response_data['text'] = message.message
+            response_data['author'] = message.user_from.username
+
+            return HttpResponse(
+                json.dumps(response_data),
+                content_type="application/json"
+            )
+        else:
+            return HttpResponse(
+                json.dumps({"nothing to see": "this isn't happening"}),
+                content_type="application/json"
+            )
+    else:
+        return redirect('/')
+
+def get_messages_AJAX(request):
+    if request.is_ajax():
+        user = request.user
+        chat_buddy = request.GET.get('chat_buddy')
+        if User.objects.filter(username=chat_buddy).exists():
+            user_to = User.objects.get(username=chat_buddy)
+            messages = basic_models.Message.objects.filter(user_from=user, user_to=user_to, status_back="sending") | basic_models.Message.objects.filter(user_from=user_to, user_to=user, status="sending")
+            messages = messages.order_by('pk')
+            for message in messages:
+                if (user == message.user_to):
+                    message.status = 'seen'
+                    message.save()
+                else:
+                    message.status_back = 'seen'
+                    message.save()
+        return render(request, 'ajax/message_list.html', {'messages': messages})
+    else:
+        return redirect('/')
 
 @login_required
 def searchView(request):
@@ -425,3 +528,12 @@ def getNotificationsView(request):
         notifications = notifications[:5]
     context_dict['notifications'] = notifications
     return render(request, 'ajax/notifications.html', context_dict)
+
+
+@login_required
+def changeDefaultView(request):
+    user = request.user
+    new = request.GET.get('new', '')
+    user.profile.default_payment = new
+    user.save()
+    return HttpResponse('')

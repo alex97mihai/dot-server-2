@@ -1,72 +1,75 @@
 .friends-container {
-    padding-top: 58px;
+  padding-top: 34px;
 }
 
-.friends-op{
-    margin: 100px auto 100px auto;
+.welcome-header {
+  font-size: 2.5rem;
+  padding-top: 15px;
+  text-align: center;
+  color: white;
 }
 
-#id_currency, #id_amount {
-    width: 50%;
+.message-button {
+  width: 100%;
 }
 
-.custom-btn {
-    margin-top: 20px;
-    width: 50%;
-    background-color: #2b1c2c;
-    border-color: #2b1c2c
+.message-button-rm {
+  background-color: #962228 !important;
 }
 
-.jumbotron {
-    background-color: #ededed;
-    padding: 3rem 2rem;
-    margin-left: 20px;
-    margin-right: 20px;
+.title {
+  font-size: 1.9rem;
+  padding-top: 10px;
+  color: white;
 }
 
-#friends-text {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+.btn {
+  background-color: #212529;
+  color: white;
+  margin-top: 10px;
 }
 
-.friends-text {
-    font-size: 1.8rem;
+.urspeciul {
+  margin-top: 100px;
 }
 
-
-.friends-header {
-    margin: 5px auto 25px;
+a.btn:hover {
+  color: white;
 }
 
-.history {
-    margin: 20px auto;
+.buttons-container {
+  margin-top: 60px;
 }
 
-.table th, .table td {
-    font-size: .8rem;
-    padding: .25rem;
+.background {
+  background-color: #962228;
 }
 
-#id_home_currency, #id_target_currency {
-    height: calc(2.25rem + 2px);
-    padding: .375rem .75rem;
-    width: 50%;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+.friend-link {
+  color: #000000;
+  text-decoration: none;
+  color: white;
+}
+
+a.friend-link:hover {
+  color: #000000;
+  text-decoration: none;
+  color: white;
 }
 
 
-#id_home_currency_amount {
-    width: 50%;
+.about {
+
 }
 
-.alert-space {
-    width: 50%;
-    margin: 10px auto;
+.id-avatar {
+  width: 20%;
+  height: auto;
+  margin: 40px auto 5px;
+}
+
+.profile-username {
+  margin: 5px auto;
+  font-weight: 600;
+  font-size: 1.4rem;
 }

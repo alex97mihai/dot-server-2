@@ -8,11 +8,11 @@
     width: 100%;
 }
 
-.control-label{
+.control-label {
     margin-bottom: 0;
 }
 
-.control{
+.control {
     margin-bottom: 5rem;
 }
 #id_username, #id_password, #id_password1, #id_password2 {
@@ -20,12 +20,12 @@
 }
 
 #vbar {
-    width:10px; 
-    height:100%; 
+    width:10px;
+    height:100%;
     border-right: 1px solid #ccc;
 }
 
-#message-box{
+#message-box {
     margin: auto;
 }
 

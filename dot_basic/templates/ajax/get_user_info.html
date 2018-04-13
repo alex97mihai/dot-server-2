@@ -1,0 +1,30 @@
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/friends.css" />
+
+<div class="container-fluid about">
+  <div class="row profile-pic">
+      <img src="{{ friend.profile.avatar.url }}" class="id-avatar" />
+  </div>
+  <div class="row">
+    <div class="profile-username">
+    {{ friend.username }}
+    </div>
+  </div>
+  {% if is_friend %}
+    <div class='row'>
+      <a href='/messages/{{ friend.username }}' type="button" class="btn btn-default message-button urspeciul">Send Message</a>
+    </div>
+
+    <div class='row'>
+      <a href='/transfer/' type="button" class="btn btn-default message-button">Send Money</a>
+    </div>
+
+    <div class='row'>
+      <a href='/' type="button" class="btn btn-default message-button">Request Money</a>
+    </div>
+    <div class='row'>
+      <a href='/' type="button" class="btn btn-default message-button message-button-rm">Remove Friend</a>
+    </div>
+  {% endif %}
+
+</div>

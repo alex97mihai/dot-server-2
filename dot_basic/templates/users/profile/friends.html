@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <link rel = "stylesheet" type = "text/css" href = "/static/basic/css/friends.css" />
+
+  <div class="container-fluid">
+    <div class='row h-100 friends-container'>
+      <div class ='col-3 background'>
+        <div class='friend-list'>
+          <div class="welcome-header">Friends</div>
+          {% if accepted_friends %}
+            {% if requests %}
+              <div class='title'>Requests</div>
+                {% for friend in requests %}
+                  <a href='' class='friend-link'>{{ friend.creator }}</a>
+                {% endfor %}
+            {% endif %}
+
+              <div class="title">Accepted</div>
+              {% for friend in accepted_friends %}
+                <div><a href='' class="friend-link">{{ friend.friend }}</a></div>
+                {% endfor %}
+            {% endif %}
+
+            {% if pending_friends %}
+              <div class='title'>Pending</div>
+              {% for friend in pending_friends %}
+                <a href='' class='friend-link'>{{ friend.friend }}</a>
+              {% endfor %}
+            {% endif %}
+      </div>
+    </div>
+      <div class='col-9' id="col2">
+        <div id='buttons-container'>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+$('.friend-link').click(function(event) {
+      event.preventDefault();
+      var name = $(event.target).text();
+      console.log(name);
+      $.ajax({
+          type: "GET",
+          url: "/get_user_info/?friend=" + name,  // URL to your view that serves new info
+      })
+      .done(function(response) {
+          $('#buttons-container').empty().append(response);
+          console.log(response);
+      });
+
+  })
+</script>
+{% endblock %}

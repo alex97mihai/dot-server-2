@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/settings.css" />
+<div class="container-fluid settings-container">
+    <div class="settings-text">Change your profile picture:</div>
+    <div class="profile-form">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+              <input id="id_image" type="file" class="" name="image">
+              <input type="submit" value="Submit" />
+      </form>
+    
+</div>
+</div>
+
+{% endblock %}

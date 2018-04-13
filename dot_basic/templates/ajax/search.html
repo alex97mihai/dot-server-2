@@ -8,10 +8,10 @@
 {% for item in userlist %}
 <div class="row">
 <div class="col-2">
-    <img src="{{ user.profile.avatar.url }}" width="15" height="15">
+    <img src="{{ item.profile.avatar.url }}" width="15" height="15">
 </div>
 <div class="col-10">
-<a href="/profile/?user={{ item.username }}">{{ item.username }}</a>
+<a href="/profile/{{ item.username }}">{{ item.username }}</a>
 </div>
 </div>
 {% endfor %}

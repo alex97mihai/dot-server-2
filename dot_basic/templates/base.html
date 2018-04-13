@@ -19,7 +19,7 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar-style">
-  <a class="navbar-brand" href="#">Dot.</a>
+  <a class="navbar-brand" href="/">Dot.</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dotnavbar" aria-controls="dotnavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -86,14 +86,14 @@
             </div>
             <div class="sidebar-settings row mx-0">
                 <div class="sidebar-settings-text " data-toggle="tooltip" data-placement="right" title="Your default currency is used in all transactions!"><small> Currency</small></div>
-                <div class="btn-group btn-group-toggle sidebar-btn-grp" data-toggle="buttons">
-                  <label class="btn btn-secondary sidebar-btn active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> EUR
+                <div class="btn-group btn-group-toggle sidebar-btn-grp">
+                  <label class="btn btn-secondary sidebar-btn {% if user.profile.default_payment == 'EUR' %} active {% endif %}" id="label1">
+                    <input type="radio" name="options" id="option1" autocomplete="off"> EUR
                   </label>
-                  <label class="btn btn-secondary sidebar-btn">
+                  <label class="btn btn-secondary sidebar-btn  {% if user.profile.default_payment == 'RON' %} active {% endif %}" id="label2">
                     <input type="radio" name="options" id="option2" autocomplete="off"> RON
                   </label>
-                  <label class="btn btn-secondary sidebar-btn">
+                  <label class="btn btn-secondary sidebar-btn {% if user.profile.default_payment == 'USD' %} active {% endif %}" id="label3">
                     <input type="radio" name="options" id="option3" autocomplete="off"> USD
                   </label>
                 </div>
@@ -188,6 +188,39 @@
           $('#notif-container').empty().append(response);
       });
   }, 1000)
+</script>
+
+<!-- default currency selector -->
+<script>
+$(document).ready(function(){
+  $('#option1').click(function(){
+      $.ajax({
+          type: "GET",
+          url: "/change-default/?new=" + 'EUR',
+      });
+      $('.sidebar-btn').removeClass("active");
+      $('#label1').addClass("active");
+
+  });
+
+  $('#option2').click(function(){
+      $.ajax({
+          type: "GET",
+          url: "/change-default/?new=" + 'RON',
+      });
+      $('.sidebar-btn').removeClass("active");
+      $('#label2').addClass("active");
+  });
+
+  $('#option3').click(function(){
+      $.ajax({
+          type: "GET",
+          url: "/change-default/?new=" + 'USD',
+      });
+      $('.sidebar-btn').removeClass("active");
+      $('#label3').addClass("active");
+  });
+})
 </script>
 
 <script>

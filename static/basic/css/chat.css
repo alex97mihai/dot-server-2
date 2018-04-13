@@ -1,0 +1,96 @@
+
+.chat-container {
+  padding-top: 34px;
+}
+
+.chat-op {
+    margin: 100px auto 100px auto;
+}
+
+fieldset {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#post-message{
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+#message-button {
+  visibility: hidden;
+}
+
+.custom-btn {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #2b1c2c;
+    border-color: #2b1c2c
+}
+
+.jumbotron {
+    background-color: #ededed;
+    padding: 3rem 2rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#chat-text {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.chat-text {
+    font-size: 1.8rem;
+}
+
+
+.chat-header {
+    margin: 5px auto 25px;
+}
+
+.history {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.table th, .table td {
+    padding: .25rem;
+}
+
+#message-form{
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+}
+
+.message-text {
+  width: 100%;
+}
+
+.message-name {
+  width: 100%;
+  font-weight: 600;
+}
+
+.message-row {
+  border-bottom: 1px #dfdfdf solid;
+}
+
+#message-list {
+  position: absolute;
+  left: 0;
+  top: 2%;
+  height: 90%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.self {
+  padding-left: 10px;
+}
+.target {
+  text-align: right;
+  padding-right: 10px;
+}

@@ -1,0 +1,19 @@
+
+{% if messages %}
+
+
+{% for message in messages %}
+<div class="row message-row {% if message.user_from.username == user.username %} self {% else %} target {% endif %}">
+  <div class="col-12">
+    <div class="row">
+      <div class="message-name">{{ message.user_from.username }}</div>
+    </div>
+    <div class="row">
+      <div class="message-text wordwrap">{{ message.message }}</div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endif %}
