@@ -48,3 +48,6 @@ class ImageUploadForm(forms.Form):
 
 class SendMessageForm(forms.Form):
     message = forms.CharField(label='Message:', widget=forms.TextInput(attrs={'id': 'post-message'}))
+
+class addPost(forms.Form):
+    text = forms.CharField(required=False, label='New Post: ', widget=forms.Textarea(attrs={'rows':4, 'cols':22, 'style':'resize:none;', 'placeholder': 'What are you thinking about?'}))

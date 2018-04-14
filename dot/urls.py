@@ -34,12 +34,15 @@ urlpatterns = [
     #
     # REGISTRATION
     path('signup/', signupView, name='signup'),
+    path('signup/corporate', corporateSignupView, name='corporate signup'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate_view'),
     # PROFILE
     path('', homeView, name='home'),
     #
     path('profile/', profileView, name='profile'),
     path('profile/<slug:profile>', profileView, name='profile'),
+    path('explore/', exploreView, name='explore'),
+    path('get-posts', get_posts_AJAX, name='refresh posts'),
     #
     path('friends/', friendsView, name='friends'),
     path('get_user_info/', get_user_info_AJAX, name='spy'),

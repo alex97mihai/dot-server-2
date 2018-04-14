@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<link rel = "stylesheet" type = "text/css" href = "/static/basic/css/explore.css" />
+
+<div class="container-fluid post-list-container">
+<div class="row">
+  <div class="container-fluid post">
+    <!-- PROFILE PICTURE -->
+    <div class="row">
+      <div class="new-post-box">
+        <!-- POST TEXT -->
+        <div class="row">
+          <div class="col-2" id="col2">
+            <img src="{{ user.profile.avatar.url }}" class="post-form-pic"/>
+          </div>
+          <div class="col-10">
+            <div class="container-fluid" id="post-form">
+                <form class="form-horizontal" method="post">{% csrf_token %}
+                  <fieldset>
+                    {% for field in form %}
+                    <div class="control-group">
+                      <div class="controls">{{ field }} {% if field.help_text %}
+                        <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </fieldset>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-space custom-btn post-btn">Post</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container-fluid">
+      {% for post in posts reversed %}
+        <div class="row post-row">
+          <div class="row" id="row-style">
+            <div class="col-2" id="col2">
+              <img src="{{ post.user.profile.avatar.url }}" class="post-post-pic"/>
+            </div>
+            <div class="col-10">
+              <div class="container-fluid wordwrap" id="post-form">
+                  <div> {{ post.text }} </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div id='newposts'></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script>
+    setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "/get-posts",  // URL to your view that serves new info
+        })
+        .done(function(response) {
+            $('#newposts').empty().append(response);
+            if (response.trim()!=''){
+            $('#newposts').addClass("new-post-popup");
+          }
+        });
+    }, 1000)
+</script>
+
+{% endblock %}

@@ -60,6 +60,32 @@ def signupView(request):
         form = basic_forms.SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+def corporateSignupView(request):
+    if request.method == 'POST':
+        form = basic_forms.SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            user.refresh_from_db()
+            user.profile.corporate = True
+            # load the profile instance created by the signal\
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your Dot account!.'
+            message = render_to_string('registration/acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(mail_subject, message, to=[to_email])
+            email.send()
+            return render(request, 'registration/request_activation.html')
+    else:
+        form = basic_forms.SignUpForm()
+    return render(request, 'corporate/registration/corporate-signup.html', {'form': form})
 
 def activate(request, uidb64, token):
     try:
@@ -87,7 +113,7 @@ def homeView(request):
     if user.profile.corporate is False:
         return render(request, 'users/profile/profile.html', {'your_page': your_page})
     else:
-        return render(request, 'corporate/corporate-profile.html')
+        return render(request, 'corporate/profile/corporate-profile.html', {'your_page': your_page})
 
 
 def moneyView(request):
@@ -104,11 +130,11 @@ def moneyView(request):
                     if (amount > 0 and amount <= balance[currency]):
                         balance[currency]=balance[currency] - amount
                         HistoryItem = basic_models.OpHistory(user = user,
-                                                currency= currency,
-                                                amount=amount,
-                                                optype='withdraw',
-                                                date=datetime.date.today(),
-                                                time=datetime.datetime.now().strftime('%H:%M:%S'))
+                                                             currency= currency,
+                                                             amount=amount,
+                                                             optype='withdraw',
+                                                             date=datetime.date.today(),
+                                                             time=datetime.datetime.now().strftime('%H:%M:%S'))
                         HistoryItem.save()
                     user.profile.USD = balance['USD']
                     user.profile.EUR = balance['EUR']
@@ -126,11 +152,11 @@ def moneyView(request):
                     if (amount > 0):
                         balance[currency]=balance[currency] + amount
                         HistoryItem = basic_models.OpHistory(user = user,
-                                                currency= currency,
-                                                amount=amount,
-                                                optype='topup',
-                                                date=datetime.date.today(),
-                                                time=datetime.datetime.now().strftime('%H:%M:%S'))
+                                                             currency= currency,
+                                                             amount=amount,
+                                                             optype='topup',
+                                                             date=datetime.date.today(),
+                                                             time=datetime.datetime.now().strftime('%H:%M:%S'))
                         HistoryItem.save()
                     user.profile.USD = balance['USD']
                     user.profile.EUR = balance['EUR']
@@ -441,12 +467,73 @@ def chatView(request, name=0):
 
 def conversationsView(request):
     user = request.user
-    return render(request, 'users/messages/chat.html')
+    mlist = basic_models.Message.objects.filter(user_from=user) | basic_models.Message.objects.filter(user_to=user)
+    nlist = {x.user_from and x.user_to for x in mlist}
+    nlist = list(nlist)
+    nlist.remove(user)
+    context_dict = {'nlist': nlist}
+    return render(request, 'users/messages/chat.html', context_dict)
 
 
 
+def exploreView(request):
+    user=request.user
+    if user.profile.corporate is False:
+        if request.method == 'POST':
+            form = basic_forms.addPost(request.POST)
+            if form.is_valid():
+                text = form.cleaned_data.get('text')
+                newpost = basic_models.Post(user = user,
+                               text = text,
+                               date = datetime.date.today(),
+                               time = datetime.datetime.now().strftime('%H:%M:%S'))
+                newpost.save()
+            return redirect('/explore/')
+        else:
+            # save date and time of last refresh for the user - used when checking for new posts
+            request.session['explore_last_time'] = datetime.datetime.now().strftime('%H:%M:%S')
+            request.session['explore_last_date'] = str(datetime.date.today())
+            form = basic_forms.addPost()
+            # get a list of all Friendship objects created by the user (same as accepted)
+            userfriends = basic_models.Friendship.objects.filter(creator = user)
+            # get a list of all User objects in the friendship list (friends of logged in user)
+            friendlist = [x.friend for x in userfriends]
+            # add logged in user to the list so he can see his own posts
+            friendlist.append(user)
+            # get all posts by Users in friend list
+            posts = basic_models.Post.objects.filter(user__in = friendlist).order_by('id')
+            purchased_items = basic_models.PurchasedItem.objects.filter(user=user)
+            #ad_companies = []
+            #ad_types = []
+            #for item in purchased_items:
+            #    ad_companies.append(item.seller)
+            #    ad_types.append(item.p_type)
+            #product_query = basic_models.Product.objects.filter(p_type__in = ad_types )
+            #ads = basic_models.CampaignItem.objects.filter(user__in = ad_companies, product__in = product_query)
+            context_dict={'form': form, 'posts': posts}
+            return render(request, 'users/explore/explore-home.html', context_dict)
+    else:
+        return redirect('/')
 
 # -------- AJAX VIEWS --------#
+
+
+def get_posts_AJAX(request):
+    user=request.user
+    userfriends = basic_models.Friendship.objects.filter(creator = user)
+    friendlist = [x.friend for x in userfriends]
+    posts = basic_models.Post.objects.filter(user__in = friendlist).order_by('id')
+    new = False
+    time = request.session['explore_last_time']
+    date = request.session['explore_last_date']
+    date_obj = datetime.datetime.strptime(date,'%Y-%m-%d').date()
+    time_obj = datetime.datetime.strptime(time, '%H:%M:%S').time()
+    for post in posts:
+        if post.time > time_obj and post.date>=date_obj:
+            new = True
+            time2=post.time
+    context_dict = {'new': new}
+    return render(request, 'ajax/get_posts.html', context_dict)
 
 def get_user_info_AJAX(request):
     if request.is_ajax():
@@ -462,7 +549,7 @@ def get_user_info_AJAX(request):
         return redirect('/')
 
 def get_conversations_AJAX(request):
-    user = request.user
+    user = request.userQ
     mlist = basic_models.Message.objects.filter(user_from=user) | basic_models.Message.objects.filter(user_to=user)
     nlist = {x.user_from and x.user_to for x in mlist}
     nlist = list(nlist)

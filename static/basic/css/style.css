@@ -98,8 +98,7 @@ html, body {
 }
 
 .menu-item .active {
-    border-bottom: 3px #BC6060 solid;
-
+    border-bottom: 3px #962228 solid;
 }
 
 
@@ -252,4 +251,8 @@ word-break: break-all;
 
 .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show > .btn-secondary.dropdown-toggle {
   background-color: #962228;
+}
+
+.new-post-box {
+  margin: auto;
 }
