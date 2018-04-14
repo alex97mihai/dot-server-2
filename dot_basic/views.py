@@ -432,7 +432,11 @@ def chatView(request, name=0):
         form = basic_forms.SendMessageForm()
         messages = basic_models.Message.objects.filter(user_from=user, user_to=chat_buddy) | basic_models.Message.objects.filter(user_from=chat_buddy, user_to=user)
         messages = messages.order_by('id')
-        context_dict = {'form': form, 'chat_buddy': chat_buddy, 'messages': messages}
+        mlist = basic_models.Message.objects.filter(user_from=user) | basic_models.Message.objects.filter(user_to=user)
+        nlist = {x.user_from and x.user_to for x in mlist}
+        nlist = list(nlist)
+        nlist.remove(user)
+        context_dict = {'form': form, 'chat_buddy': chat_buddy, 'messages': messages, 'nlist': nlist}
         return render(request, 'users/messages/chat.html', context_dict)
 
 def conversationsView(request):
@@ -456,6 +460,16 @@ def get_user_info_AJAX(request):
         return render(request, 'ajax/get_user_info.html', context_dict)
     else:
         return redirect('/')
+
+def get_conversations_AJAX(request):
+    user = request.user
+    mlist = basic_models.Message.objects.filter(user_from=user) | basic_models.Message.objects.filter(user_to=user)
+    nlist = {x.user_from and x.user_to for x in mlist}
+    nlist = list(nlist)
+    nlist.remove(user)
+    context_dict = {'nlist': nlist}
+    return render(request, 'ajax/get_conversations.html', context_dict)
+
 
 def send_message_AJAX(request):
     if request.is_ajax():

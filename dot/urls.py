@@ -47,6 +47,7 @@ urlpatterns = [
     path('messages/<slug:name>', chatView, name='chat'),
     path('send_message/', send_message_AJAX, name='send message'),
     path('get_messages/', get_messages_AJAX, name='get_messages'),
+    path('get_conversations/', get_conversations_AJAX, name='get conversations'),
     # WALLET
     path('money/', moneyView, name='operations'),
     path('exchange/', exchangeView, name='exchange'),

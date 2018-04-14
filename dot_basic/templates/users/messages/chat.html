@@ -4,11 +4,40 @@
 
 <div class="container-fluid">
   <div class="row h-100 chat-container">
-    <div class="col-3">
+    <div class="col-3" id="conv-col">
+      <div class="container-fluid d-none d-md-block" id="conversation-list">
+        
+        <div class="container-fluid conv-container">
+            <div class="conversations-header">Conversations</div>
+            
+
+            {% if nlist %}
+
+            {% for conversation in nlist %}
+            <a href="/messages/{{conversation.username}}"> 
+            <div class="row conversation">
+                <div class="col-3">
+                    <img src="{{ conversation.profile.avatar.url }}" class="conv-pic">
+                </div>
+                <div class="col-9">
+                    {{ conversation.username }}
+                </div>
+            </div>
+            </a>
+
+            {% endfor %}
+
+            {% else %}
+            <div class="no-conv">No conversations yet!</div>
+            {% endif %}
+
+        </div>
+
+      </div>
     </div>
     <div class="col-9">
-      {% if messages %}
       <div class="container-fluid" id="message-list">
+        {% if messages %}
         {% for message in messages %}
         <div class="row message-row {% if message.user_from.username == user.username %} self {% else %} target {% endif %}">
           <div class="col-12">
@@ -21,8 +50,8 @@
           </div>
         </div>
         {% endfor %}
-      </div>
       {% endif %}
+      </div>
       <div class="row">
       <form class="form-horizontal input-group" method="post" id='message-form'>
 
@@ -30,7 +59,9 @@
         <fieldset>
           {% for field in form %}
           <div class="control-group">
+            <!---
             <label class="control-label">{{ field.label }}</label>
+            -->
             <div class="controls">{{ field }}
             </div>
           </div>
@@ -46,42 +77,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-<!---
- <div class="container-fluid chat-container" >
-   <div class="container-fluid" id="message-list">
-   </div>
-
-   <div id="login-form">
-    <form class="form-horizontal input-group" method="post" id='message-form'>
-
-      {% csrf_token %}
-      <fieldset>
-        {% for field in form %}
-        <div class="control-group">
-          <label class="control-label">{{ field.label }}</label>
-          <div class="controls">{{ field }} {% if field.help_text %}
-            <p class="help-inline"><small>{{ field.help_text }}</small></p>
-            {% endif %}
-          </div>
-        </div>
-        {% endfor %}
-
-      </fieldset>
-            <span class="form-actions input-group-btn" >
-        <button type="submit" class="btn btn-primary btn-space" id="message-button">Send Message</button>
-      </span>
-
-    </form>
-  </div>
-</div>
---->
-
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -110,6 +105,14 @@ setInterval(function() {
         if(response.trim()!=''){
           var objDiv = document.getElementById("message-list");
           objDiv.scrollTop = objDiv.scrollHeight;    };
+    });
+
+    $.ajax({
+        type: "GET",
+        url: '/get_conversations/',  // URL to your view that serves new info
+    })
+    .done(function(response) {
+        $('#conversation-list').empty().append(response);
     });
 }, 250)
 </script>
